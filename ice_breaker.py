@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from langchain.prompts.prompt import PromptTemplate
 from langchain_openai import ChatOpenAI
+from langchain_ollama import ChatOllama
 
 if __name__ == "__main__":
     load_dotenv()
@@ -25,7 +26,11 @@ In October 2002, eBay acquired PayPal for $1.5 billion, and that same year, with
         input_variables=["information"], template=summary_template
     )
 
-    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    # llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
+    llm = ChatOllama(
+        model="llama3.2",
+        temperature=0,
+    )
 
     # The | pipe is a LangChain Expression Language (LCEL) element and used to describe chains
     chain = summary_prompt_template | llm
