@@ -8,12 +8,12 @@ from agents.twitter_lookup_agent import lookup as twitter_lookup_agent
 from third_parties.twitter import scrape_user_tweets
 
 
-def ice_break_with(name: str) -> str:
+def ice_break_with(name: str, mock: bool = True) -> str:
     linkedin_username = linkedin_lookup_agent(name=name)
-    linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_username)
+    linkedin_data = scrape_linkedin_profile(linkedin_profile_url=linkedin_username, mock=mock)
 
     twitter_username = twitter_lookup_agent(name=name)
-    tweets = scrape_user_tweets(username=twitter_username)
+    tweets = scrape_user_tweets(username=twitter_username, num_tweets=5, mock=mock)
 
     summary_template = """
     given the information about a person from linkedin {information},
@@ -40,4 +40,4 @@ if __name__ == "__main__":
     load_dotenv()
 
     print("Ice Breaker Enter")
-    ice_break_with(name="Harrison Chase")
+    ice_break_with(name="Harrison Chase", mock=False)
